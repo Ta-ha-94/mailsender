@@ -32,12 +32,4 @@ public class EmailController {
 					CustomResponse.builder().message("Email sent successfully!").httpStatus(HttpStatus.OK).success(true).build()
 				);
 	}
-	
-	@PostMapping("/send-with-file")
-	public ResponseEntity<?>  sendEmailWithFile(@RequestBody EmailRequest emailRequest){
-		emailService.sendEmail(emailRequest.getTo(), emailRequest.getSubject(), emailRequest.getMessage());
-		return ResponseEntity.ok(
-					CustomResponse.builder().message("Email sent successfully!").httpStatus(HttpStatus.OK).success(true).build()
-				);
-	}
 }
