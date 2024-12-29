@@ -11,7 +11,8 @@ public class PageController {
 	public String home(Model model) {
 		System.out.println("Home Page Handler...");
 		model.addAttribute("name", "Taha");
-		model.addAttribute("Youtube Channel", "Codingsy");
+		model.addAttribute("youtubeChannel", "Codingsy");
+		model.addAttribute("getRepo", "https://github.com/Ta-ha-94");
 		return "home";
 	}
 }

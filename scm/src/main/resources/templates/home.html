@@ -15,7 +15,12 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Welcome to home page</h1>
+		<h1 data-th-text="${name}" >Welcome to home page</h1>
+		<p>Youtube channel name: <span data-th-text="${youtubeChannel}" ></span></p>
+		<p>Guthub Repo channel name: <span th:text="${getRepo}" ></span></p>
+		<p>
+			<a data-th-href="${getRepo}">Click here to go to GitHub</a>
+		</p>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
 			eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
 			ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
