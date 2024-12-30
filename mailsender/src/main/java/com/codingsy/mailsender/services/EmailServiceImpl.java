@@ -1,6 +1,11 @@
 package com.codingsy.mailsender.services;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,22 +75,49 @@ public class EmailServiceImpl implements EmailService{
 	public void sendEmailWithFile(String to, String subject, String message, File file) {
 		MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 		try {
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-			helper.setTo(to);
-			helper.setSubject(subject);
-			helper.setFrom("business.codingsy@gmail.com");
-			helper.setText(message);
-			
-			FileSystemResource fileSystemResource = new FileSystemResource(file);
-			helper.addAttachment(fileSystemResource.getFilename(), file);
-			
-			javaMailSender.send(mimeMessage);
-			logger.info("Email has been sent..");
-			
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+				helper.setTo(to);
+				helper.setSubject(subject);
+				helper.setFrom("business.codingsy@gmail.com");
+				helper.setText(message);
+				
+				FileSystemResource fileSystemResource = new FileSystemResource(file);
+				helper.addAttachment(fileSystemResource.getFilename(), file);
+				
+				javaMailSender.send(mimeMessage);
+				logger.info("Email has been sent..");
+				
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		@Override
+		public void sendEmailWithFile(String to, String subject, String message, InputStream is) {
+			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+			try {
+				File file = new File("src/main/resources/email/test.png");
+				Files.copy(is, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				
+				FileSystemResource fileSystemResource = new FileSystemResource(file);
+				
+				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+				helper.setTo(to);
+				helper.setSubject(subject);
+				helper.setFrom("business.codingsy@gmail.com");
+				helper.setText(message);
+				helper.addAttachment(fileSystemResource.getFilename(), file);
+				
+				javaMailSender.send(mimeMessage);
+				logger.info("Email has been sent..");
+				
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		
 	}
 

@@ -1,6 +1,8 @@
 package com.codingsy.mailsender;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,21 @@ public class EmailSenderTest {
 //		emailService.sendEmailWithHtml("ans.taha94@gmail.com", "Email from spring boot app", html);
 //	}
 	
+//	@Test
+//	void sendEmailWithFileTest() {
+//		System.out.println("Testing...");
+//		emailService.sendEmailWithFile("ans.taha94@gmail.com", "Emai with file", "This email contains file", new File("C:\\Codingsy\\Screenshots\\02-Set-up-JDK\\01-installer-download-image.png"));
+//	}
+	
 	@Test
-	void sendEmailWithFileTest() {
+	void sendEmailWithFile() {
 		System.out.println("Testing...");
-		emailService.sendEmailWithFile("ans.taha94@gmail.com", "Emai with file", "This email contains file", new File("C:\\Codingsy\\Screenshots\\02-Set-up-JDK\\01-installer-download-image.png"));
+		File file = new File("C:\\Codingsy\\Screenshots\\02-Set-up-JDK\\02-jdk-23-installation-image.png");
+		try {
+			emailService.sendEmailWithFile("ans.taha94@gmail.com", "Email from spring boot app again", "This is a testing email", new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
